@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Sun, Code2, Smartphone, Sliders, Wrench, Check, ArrowRight, Phone } from "lucide-react";
-import logo from "./assets/logo_header_h80@2x.png"; // retina logo @2x
+import {
+  Sun, Code2, Smartphone, Sliders, Wrench, Check, ArrowRight, Phone,
+  Lightbulb, Wand2, TrendingUp
+} from "lucide-react";
+import logo from "./assets/logo_header_h80@2x.png";
+
+
 
 const COLORS = { primary: "#031b31", accent: "#F4C542", card: "#0b2a46" };
 
@@ -23,6 +28,15 @@ const OutlineButton = ({ as: Tag = "button", className = "", children, ...props 
     {children}
   </Tag>
 );
+
+const Pill = ({ icon: Icon, children }) => (
+  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide"
+        style={{ color: COLORS.accent, backgroundColor: "rgba(244,197,66,0.08)", border: "1px solid rgba(244,197,66,0.35)" }}>
+    <Icon className="w-3.5 h-3.5" />
+    {children}
+  </span>
+);
+
 
 const Card = ({ className = "", children, style }) => (
   <div
@@ -272,33 +286,99 @@ export default function Landing() {
       </Section>
 
       {/* CASE STUDIES */}
-      <Section id="case" className="pt-0">
-        <Container>
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Nasze realizacje:</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6">
-              <h3 className="text-2xl font-bold">MagElektro – integracja stanów i zamówień</h3>
-              <p className="mt-2 text-slate-200/90">
-                API Interelektro → Subiekt Nexo Pro: synchronizacja stanów, rekomendacje zakupów (Rotacja60/365, lead time).
-              </p>
-            </Card>
-            <Card className="p-6">
-              <h3 className="text-2xl font-bold">Comfort Analytics – kokpit decyzyjny</h3>
-              <p className="mt-2 text-slate-200/90">
-                Dashboardy Power BI i AppSheet – instalacje PV, serwisy, stany, rozliczenia.
-              </p>
-            </Card>
-            <Card className="p-6 md:col-span-2">
-              <h3 className="text-2xl font-bold">Comfort VendPro dla Venka</h3>
-              <p className="mt-2 text-slate-200/90">
-                Aplikacja serwisowa i raportowa dla vendingu (Venka) – panel serwisanta, badania okresowe,
-                liczniki → raporty w Comfort VendHub, opinie/awarie przez QR. Odwiedź:{" "}
-                <a className="underline" href="https://www.venka.pl/" target="_blank" rel="noopener noreferrer">venka.pl</a>.
-              </p>
-            </Card>
+    <Section id="case" className="pt-0">
+  <Container>
+    <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Nasze realizacje:</h2>
+
+    <div className="grid md:grid-cols-2 gap-6">
+      {/* MagElektro */}
+      <Card className="p-6">
+        <h3 className="text-2xl font-bold">MVP – integracja stanów i zamówień oraz proponowanie zamówień</h3>
+        <div className="mt-4 space-y-4 text-slate-200/90">
+          <div>
+            <Pill icon={Lightbulb}>Wyzwanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Brak integracji z magazynem grupy zakupowej, ręczne kompletowanie zamówień, brak spójnych prognoz, brak zorganizowanej i "czystej" bazy danych.
+            </p>
           </div>
-        </Container>
-      </Section>
+          <div>
+            <Pill icon={Wand2}>Rozwiązanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Integracja API z grupą zakupową Interelektro ↔ Subiekt Nexo Pro: harmonogram synchronizacji indeksów/stanów/cen, moduł zamówień
+              z regułami i lead time, alerty niedoborów.
+            </p>
+          </div>
+          <div>
+            <Pill icon={TrendingUp}>Efekty</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Aktualne stany w systemie, mniej błędów w zakupach, szybsze przygotowanie zamówień i większa dostępność towaru.
+              <span className="opacity-80"> Mniej klikania, więcej realnej roboty.</span>
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      {/* Comfort Analytics */}
+      <Card className="p-6">
+        <h3 className="text-2xl font-bold">Comfort Analytics – kokpit decyzyjny</h3>
+        <div className="mt-4 space-y-4 text-slate-200/90">
+          <div>
+            <Pill icon={Lightbulb}>Wyzwanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Brak jednego miejsca do analityki i źródła prawdy dla KPI.
+            </p>
+          </div>
+          <div>
+            <Pill icon={Wand2}>Rozwiązanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Model danych pod raportowanie; dashboardy w Power BI oraz aplikacje operacyjne w AppSheet.
+
+            </p>
+          </div>
+          <div>
+            <Pill icon={TrendingUp}>Efekty</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Wspólne definicje wskaźników, raport „1-klik”, szybsze decyzje operacyjne i finansowe.
+              <span className="opacity-80"> Koniec „excelozy” na statusach.</span>
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      {/* VendPro dla Venka */}
+      <Card className="p-6 md:col-span-2">
+        <h3 className="text-2xl font-bold">Comfort VendPro dla Venka</h3>
+        <div className="mt-4 space-y-4 text-slate-200/90">
+          <div>
+            <Pill icon={Lightbulb}>Wyzwanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Serwis terenowy vendingu na papierze/Excelu, słaba widoczność stanu automatów i historii serwisowej.
+            </p>
+          </div>
+          <div>
+            <Pill icon={Wand2}>Rozwiązanie</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Aplikacja mobilna <span className="font-semibold">Comfort VendPro</span>: panel serwisanta (pakowanie, podgląd automatów),
+              checklisty badań okresowych (np. kalibracja wagi, wymiana zaparzacza), liczniki → raporty w
+              <span className="font-semibold"> Comfort VendHub</span>, QR do opinii/awarii.
+            </p>
+          </div>
+          <div>
+            <Pill icon={TrendingUp}>Efekty</Pill>
+            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+              Krótszy czas reakcji, pełna historia obsługi, wyższa jakość serwisu.
+              <span className="opacity-80"> Serwis „na czysto”, a nie na pamięć.</span>
+              <span> Klient: <span className="font-semibold">Venka</span> – </span>
+              <a className="underline" href="https://www.venka.pl/" target="_blank" rel="noopener noreferrer">venka.pl</a>.
+            </p>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </Container>
+</Section>
+
+
 
       {/* TECH */}
       <Section id="tech" className="pt-0">
