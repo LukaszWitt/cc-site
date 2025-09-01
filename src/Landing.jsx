@@ -163,11 +163,13 @@ export default function Landing() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.currentTarget; // <- zapamiętaj form, bo po await event bywa "zanikający"
+
     try {
       setSending(true);
       setSent(false);
 
-      const fd = new FormData(e.currentTarget);
+      const fd = new FormData(form);
       const payload = {
         name: fd.get("name"),
         email: fd.get("email"),
@@ -195,7 +197,7 @@ export default function Landing() {
       if (data && data.ok === false) throw new Error("Serwer odrzucił prośbę.");
 
       setSent(true);
-      e.currentTarget.reset();
+      form.reset(); // <- użyj referencji do formularza
     } catch (err) {
       console.error("Contact form error:", err);
       alert(`Nie udało się wysłać: ${err.message || err}`);
@@ -213,7 +215,7 @@ export default function Landing() {
             <img
               src={logo}
               alt="Comfort Connector"
-              className="h-25 md:h-22 w-auto rounded-lg"
+              className="h-22 md:h-23 w-auto rounded-lg"
               style={{ filter: "drop-shadow(0 0 8px rgba(0,0,0,0.25))" }}
             />
           </a>
@@ -464,12 +466,12 @@ export default function Landing() {
           <div className="grid md:grid-cols-4 gap-8 text-sm">
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <img src={logo} alt="Comfort Connector" className="h-22 w-auto rounded" />
+                <img src={logo} alt="Comfort Connector" className="h-23 w-auto rounded" />
 {/*                 <span className="font-semibold">Comfort Connector</span> */}
               </div>
-{/*               <p className="text-slate-400"> */}
+              <p className="text-slate-400">
 {/*                 Pomiary elektryczne, instalacje PV i oprogramowanie — jeden partner, pełna odpowiedzialność. */}
-{/*               </p> */}
+              </p>
             </div>
 
             <div>
@@ -477,7 +479,7 @@ export default function Landing() {
               <ul className="space-y-1 text-slate-300">
                 <li>Comfort Connector – Łukasz Witt</li>
                 <li>NIP: <span className="tabular-nums">7831920072</span></li>
-                {/* Jeśli chcesz dodać adres/REGON, dopisz je tutaj. */}
+                {/* Dodaj adres/REGON gdy będziesz chciał. */}
               </ul>
             </div>
 
