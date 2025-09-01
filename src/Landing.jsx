@@ -387,7 +387,7 @@ export default function Landing() {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <img src={logo} alt="Comfort Connector" className="h-23 w-auto rounded" />
-                <span className="font-semibold">Comfort Connector</span>
+{/*                 <span className="font-semibold">Comfort Connector</span> */}
               </div>
               <p className="text-slate-400">
 {/*                 Pomiary elektryczne, instalacje PV i oprogramowanie — jeden partner, pełna odpowiedzialność. */}
