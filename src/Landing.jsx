@@ -399,7 +399,7 @@ export default function Landing() {
       {/* separator */}
       <div className="h-1" style={{ background: `linear-gradient(90deg, ${COLORS.accent}, transparent)` }} />
 
-      {/* KONTAKT */}
+      /* {/* KONTAKT */}
       <Section id="kontakt">
         <Container>
           <Card className="p-6">
@@ -458,7 +458,7 @@ export default function Landing() {
             </div>
           </Card>
         </Container>
-      </Section>
+      </Section> */
 
       {/* FOOTER */}
       <footer className="py-12 border-t border-white/10">
