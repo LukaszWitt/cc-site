@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Sun, Code2, Smartphone, Sliders, Wrench, Check, ArrowRight, Phone,
+  Code2, Smartphone, Sliders, Check, ArrowRight, Phone,
   Lightbulb, Wand2, TrendingUp
 } from "lucide-react";
 import logo from "./assets/logo_header_h80@2x.png";
-
-
 
 const COLORS = { primary: "#031b31", accent: "#F4C542", card: "#0b2a46" };
 
@@ -37,7 +35,6 @@ const Pill = ({ icon: Icon, children }) => (
   </span>
 );
 
-
 const Card = ({ className = "", children, style }) => (
   <div
     className={`rounded-2xl backdrop-blur border border-white/10 shadow-sm hover:shadow-md transition ${className}`}
@@ -55,61 +52,72 @@ const Container = ({ className = "", children }) => (
   <div className={`mx-auto w-full max-w-7xl px-4 md:px-6 ${className}`}>{children}</div>
 );
 
-// Ikony dziedziczą currentColor; rozmiar ujednolicony
 const ICON_CLASS = "w-7 h-7 md:w-8 md:h-8";
 
+/*
+  Zmienione: sekcja services — usunięte odniesienia do elektryki/PV.
+  Zawartość oparta na przesłanej ofercie PDF: Zakupy i magazyn, Sprzedaż/CRM, Serwis, Automatyzacje, Dashboardy, Aplikacje dedykowane.
+*/
 const services = [
   {
-    id: "pomiary",
-    title: "Pomiary elektryczne",
-    icon: <Wrench className={ICON_CLASS} strokeWidth={2} />,
-    bullets: ["Pomiary odbiorcze i okresowe", "Instalacje mieszkaniowe i przemysłowe", "Protokoły PDF + rekomendacje"],
-    details: [
-      "Pomiary impedancji pętli zwarcia, rezystancji izolacji, ciągłości PE, RCD.",
-      "Raporty z wnioskami naprawczymi oraz planem działań.",
-    ],
-  },
-  {
-    id: "pv",
-    title: "Instalacje fotowoltaiczne",
-    icon: <Sun className={ICON_CLASS} strokeWidth={2} />,
-    bullets: ["Dobór, projekt i montaż", "Magazyny energii, backup", "Monitoring i serwis"],
-    details: [
-      "Przemysłowe i domowe – projekt elektryczny, konfiguracja, uruchomienie.",
-      "Integracje: SmartGuard/EMMA, limity eksportu, optymalizacja zużycia.",
-    ],
-  },
-  {
-    id: "it",
-    title: "Usługi informatyczne",
+    id: "zakupy",
+    title: "Zakupy i magazyn",
     icon: <Code2 className={ICON_CLASS} strokeWidth={2} />,
-    bullets: ["Małe aplikacje (Python/JS)", "Integracje API i automatyzacje", "Dashboardy i raporty"],
+    bullets: ["Centralizacja stanów i dostawców", "Propozycje zamówień (rotacje 60/365 dni)", "Min/opt, lead time i reguły zamówień"],
     details: [
-      "Subiekt Nexo Pro, ERP/CRM, Google Workspace, AppSheet.",
-      "Tworzymy API, scrapery, ETL oraz kokpity (np. Comfort Analytics).",
+      "Automatyzacja propozycji zamówień oparta o rotacje i porównanie sprzedaż/zakupy.",
+      "Integracje z grupami zakupowymi i eksporty gotowe do Subiekt (EPP/CSV)."
     ],
   },
   {
-    id: "vending",
-    title: "Comfort VendPro (aplikacja vending)",
+    id: "sprzedaz",
+    title: "Sprzedaż / CRM",
     icon: <Smartphone className={ICON_CLASS} strokeWidth={2} />,
-    bullets: [
-      "Panel serwisanta: pakowanie, podgląd automatów",
-      "Badania okresowe: kalibracja wagi, wymiana zaparzacza",
-      "Opinie/Zgłoszenia via QR",
-    ],
+    bullets: ["Rejestracja klientów i zleceń", "Proste generator ofert", "Integracja procesów sprzedażowych"],
     details: [
-      "Wpisy stanów liczników → raporty w Comfort VendHub.",
-      "Skan QR do opinii, zgłoszeń i awarii (z geolokalizacją/opisem/zdjęciem).",
-      "Integracje z ERP/IoT; offline-first i szybkie skanowanie.",
+      "Prosty CRM operacyjny dla handlowców: telefon, historia, zamówienia i priorytety.",
+      "Generator ofert i kalkulatory, gotowe do wysłania klientowi w kilka klików."
     ],
   },
   {
-    id: "optymalizacja",
-    title: "Aplikacje optymalizujące procesy",
+    id: "serwis",
+    title: "Serwis i operacje terenowe",
+    icon: <Lightbulb className={ICON_CLASS} strokeWidth={2} />,
+    bullets: ["Aplikacje terenowe offline-first", "Check-listy i audyty", "Raporty serwisowe i zdjęcia"],
+    details: [
+      "Mobilne aplikacje dla serwisantów z trybem offline i synchronizacją.",
+      "Rejestracja zadań, zdjęć i historii prac — łatwe raporty i audyty."
+    ],
+  },
+  {
+    id: "automatyzacje",
+    title: "Automatyzacje i API",
     icon: <Sliders className={ICON_CLASS} strokeWidth={2} />,
-    bullets: ["Prognozowanie zakupów (AI)", "Planowanie stanów i rotacji", "Usprawnienia w magazynie"],
-    details: ["MVP narzędzi do zamówień, modele popytu, automatyczne rekomendacje."],
+    bullets: ["Skrypty i ETL", "Integracje API (Subiekt, inne ERP)", "Automatyczne harmonogramy zadań"],
+    details: [
+      "Procesy ETL i automatyczne synchronizacje ograniczające ręczne prace.",
+      "Zadania cykliczne: synchronizacja stanów, cenników i exporty."
+    ],
+  },
+  {
+    id: "raporty",
+    title: "Dashboardy i raporty",
+    icon: <TrendingUp className={ICON_CLASS} strokeWidth={2} />,
+    bullets: ["Power BI / kokpity decyzyjne", "KPIs na pulpicie zarządu", "Raporty eksportowalne"],
+    details: [
+      "Model danych pod raportowanie i gotowe panele KPI dla codziennej decyzji.",
+      "Eksporty i alerty, które dają natychmiastowy efekt operacyjny."
+    ],
+  },
+  {
+    id: "aplikacje",
+    title: "Aplikacje dedykowane",
+    icon: <Code2 className={ICON_CLASS} strokeWidth={2} />,
+    bullets: ["Szybkie PoC (1–2 tyg.)", "Aplikacje no-/low-code i web", "Integracje z Subiekt i innymi źródłami"],
+    details: [
+      "Buduję lżejsze aplikacje dopasowane do procesów (serwis, sprzedaż, magazyn).",
+      "Szybkie iteracje: PoC → walidacja → produkcja."
+    ],
   },
 ];
 
@@ -163,7 +171,7 @@ export default function Landing() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const form = e.currentTarget; // <- zapamiętaj form, bo po await event bywa "zanikający"
+    const form = e.currentTarget;
 
     try {
       setSending(true);
@@ -178,7 +186,7 @@ export default function Landing() {
       };
 
       const base = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
-      if (!base) throw new Error("Brak VITE_API_URL (sprawdź ustawienia na Vercel).");
+      if (!base) throw new Error("Brak VITE_API_URL (sprawdź ustawienia).");
 
       const res = await fetch(`${base}/contact`, {
         method: "POST",
@@ -197,7 +205,7 @@ export default function Landing() {
       if (data && data.ok === false) throw new Error("Serwer odrzucił prośbę.");
 
       setSent(true);
-      form.reset(); // <- użyj referencji do formularza
+      form.reset();
     } catch (err) {
       console.error("Contact form error:", err);
       alert(`Nie udało się wysłać: ${err.message || err}`);
@@ -222,7 +230,6 @@ export default function Landing() {
           <nav className="hidden md:flex items-center gap-6 text-sm text-white/90">
             <a href="#uslugi" className="hover:text-white">Usługi</a>
             <a href="#case" className="hover:text-white">Nasze realizacje</a>
-            <a href="#tech" className="hover:text-white">Technologie</a>
             <a href="#kontakt" className="hover:text-white">Kontakt</a>
           </nav>
           <div className="hidden md:flex items-center gap-4">
@@ -240,32 +247,34 @@ export default function Landing() {
           <div className="grid md:grid-cols-2 items-center gap-8">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-                Łączymy <span style={{ color: COLORS.accent }}>pomiary</span>, PV i software w jedną usługę.
+                Automatyzacja procesów zakupów, magazynu i serwisu dla MŚP.
               </h1>
               <p className="mt-4 text-lg text-slate-200/90 max-w-xl">
-                Od protokołu z pomiarów, przez montaż fotowoltaiki, po integracje API i aplikacje, które
-                przyspieszają pracę. Jedno miejsce – jeden partner – mierzalne efekty.
+                Łączę systemy ERP, lekkie aplikacje terenowe i raporty, żeby dać jedną wersję prawdy — mniej błędów, krótszy czas realizacji i niższe koszty operacyjne.
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <a href="#uslugi"><Button>Sprawdź ofertę</Button></a>
-                <a href="#case"><OutlineButton>Nasze realizacje</OutlineButton></a>
+                <a href="#kontakt"><Button>Umów diagnozę (30–45 min)</Button></a>
+                <a href="#case"><OutlineButton>Oferta i realizacje</OutlineButton></a>
               </div>
+              <p className="mt-4 text-sm text-slate-400 max-w-lg">
+                Specjalizuję się w integracjach z Subiekt Nexo Pro, automatyzacjach zamówień, aplikacjach offline-first i dashboardach decyzji.
+              </p>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
               <Card className="p-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-3xl font-extrabold" style={{ color: COLORS.accent }}>20</div>
-                    <div className="text-xs text-slate-300">zrealizowanych instalacji fotowoltaicznych</div>
+                    <div className="text-3xl font-extrabold" style={{ color: COLORS.accent }}>10+</div>
+                    <div className="text-xs text-slate-300">wdrożeń / projektów</div>
                   </div>
                   <div>
                     <div className="text-3xl font-extrabold" style={{ color: COLORS.accent }}>&gt;30%</div>
-                    <div className="text-xs text-slate-300">szybsze procesy (MVP)</div>
+                    <div className="text-xs text-slate-300">przyspieszenie procesów</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-extrabold" style={{ color: COLORS.accent }}>24/7</div>
-                    <div className="text-xs text-slate-300">monitoring i wsparcie</div>
+                    <div className="text-3xl font-extrabold" style={{ color: COLORS.accent }}>SLA</div>
+                    <div className="text-xs text-slate-300">wsparcie i monitoring — w zależności od umowy</div>
                   </div>
                 </div>
               </Card>
@@ -280,7 +289,7 @@ export default function Landing() {
       {/* USŁUGI */}
       <Section id="uslugi">
         <Container>
-          <h2 className="text-3xl md:text-4xl font-extrabold">Czym się zajmujemy:</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold">Czym się zajmuję:</h2>
           <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s) => (<ServiceCard key={s.id} s={s} />))}
           </div>
@@ -288,118 +297,159 @@ export default function Landing() {
       </Section>
 
       {/* CASE STUDIES */}
-    <Section id="case" className="pt-0">
-  <Container>
-    <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Nasze realizacje:</h2>
-
-    <div className="grid md:grid-cols-2 gap-6">
-      {/* MagElektro */}
-      <Card className="p-6">
-        <h3 className="text-2xl font-bold">MVP – integracja stanów i zamówień oraz proponowanie zamówień</h3>
-        <div className="mt-4 space-y-4 text-slate-200/90">
-          <div>
-            <Pill icon={Lightbulb}>Wyzwanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Brak integracji z magazynem grupy zakupowej, ręczne kompletowanie zamówień, brak spójnych prognoz, brak zorganizowanej i "czystej" bazy danych.
-            </p>
-          </div>
-          <div>
-            <Pill icon={Wand2}>Rozwiązanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Integracja API z grupą zakupową Interelektro ↔ Subiekt Nexo Pro: harmonogram synchronizacji indeksów/stanów/cen, moduł zamówień
-              z regułami i lead time, alerty niedoborów.
-            </p>
-          </div>
-          <div>
-            <Pill icon={TrendingUp}>Efekty</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Aktualne stany w systemie, mniej błędów w zakupach, szybsze przygotowanie zamówień i większa dostępność towaru.
-              <span className="opacity-80"> Mniej klikania, więcej realnej roboty.</span>
-            </p>
-          </div>
-        </div>
-      </Card>
-
-      {/* Comfort Analytics */}
-      <Card className="p-6">
-        <h3 className="text-2xl font-bold">Comfort Analytics – kokpit decyzyjny</h3>
-        <div className="mt-4 space-y-4 text-slate-200/90">
-          <div>
-            <Pill icon={Lightbulb}>Wyzwanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Brak jednego miejsca do analityki i źródła prawdy dla KPI.
-            </p>
-          </div>
-          <div>
-            <Pill icon={Wand2}>Rozwiązanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Model danych pod raportowanie; dashboardy w Power BI oraz aplikacje operacyjne w AppSheet.
-
-            </p>
-          </div>
-          <div>
-            <Pill icon={TrendingUp}>Efekty</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Wspólne definicje wskaźników, raport „1-klik”, szybsze decyzje operacyjne i finansowe.
-              <span className="opacity-80"> Koniec „excelozy” na statusach.</span>
-            </p>
-          </div>
-        </div>
-      </Card>
-
-      {/* VendPro dla Venka */}
-      <Card className="p-6 md:col-span-2">
-        <h3 className="text-2xl font-bold">Comfort VendPro dla Venka</h3>
-        <div className="mt-4 space-y-4 text-slate-200/90">
-          <div>
-            <Pill icon={Lightbulb}>Wyzwanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Serwis terenowy vendingu na papierze/Excelu, słaba widoczność stanu automatów i historii serwisowej.
-            </p>
-          </div>
-          <div>
-            <Pill icon={Wand2}>Rozwiązanie</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Aplikacja mobilna <span className="font-semibold">Comfort VendPro</span>: panel serwisanta (pakowanie, podgląd automatów),
-              checklisty badań okresowych (np. kalibracja wagi, wymiana zaparzacza), liczniki → raporty w
-              <span className="font-semibold"> Comfort VendHub</span>, QR do opinii/awarii.
-            </p>
-          </div>
-          <div>
-            <Pill icon={TrendingUp}>Efekty</Pill>
-            <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
-              Krótszy czas reakcji, pełna historia obsługi, wyższa jakość serwisu.
-              <span className="opacity-80"> Serwis „na czysto”, a nie na pamięć.</span>
-              <span> Klient: <span className="font-semibold">Venka</span> – </span>
-              <a className="underline" href="https://www.venka.pl/" target="_blank" rel="noopener noreferrer">venka.pl</a>.
-            </p>
-          </div>
-        </div>
-      </Card>
-    </div>
-  </Container>
-</Section>
-
-
-
-      {/* TECH */}
-      <Section id="tech" className="pt-0">
+      <Section id="case" className="pt-0">
         <Container>
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Technologie, które łączymy:</h2>
-          <Card className="p-6">
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-slate-100/90">
-              {["EN/PN – zgodność elektryczna", "SQL / Subiekt Nexo Pro", "Python / FastAPI", "Power BI / AppSheet"].map((t) => (
-                <div key={t} className="rounded-xl border border-white/10 px-4 py-3 text-center">{t}</div>
-              ))}
-            </div>
-          </Card>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Realizacje — wybrane projekty</h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* MagElektro */}
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold">MVP — integracja stanów i rekomendacje zamówień</h3>
+              <div className="mt-4 space-y-4 text-slate-200/90">
+                <div>
+                  <Pill icon={Lightbulb}>Wyzwanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Dane rozproszone w systemach i Excelach, ręczne zamówienia i brak spójnych prognoz — co prowadziło do braków i nadwyżek magazynowych.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Integracja Interelektro ↔ Subiekt Nexo Pro, harmonogram synchronizacji stanów i cen, moduł propozycji zamówień z regułami (lead time, min/opt).
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Aktualne stany, szybsze przygotowanie zamówień i mniejsza liczba zwrotów. Przejrzystość marży i lepsze planowanie zakupów.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Comfort Analytics */}
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold">Comfort Analytics — kokpit decyzyjny</h3>
+              <div className="mt-4 space-y-4 text-slate-200/90">
+                <div>
+                  <Pill icon={Lightbulb}>Wyzwanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Brak jednego, wiarygodnego źródła danych dla KPI i zarządu.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Model danych raportowych, dashboardy Power BI i procesy ETL — konsolidacja danych z ERP i innych źródeł.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Szybsze decyzje, ujednolicone KPI i redukcja ręcznej pracy analitycznej.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* VendPro */}
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold">Comfort VendPro — system serwisowy dla vendingu</h3>
+              <div className="mt-4 space-y-4 text-slate-200/90">
+                <div>
+                  <Pill icon={Lightbulb}>Wyzwanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Procesy serwisowe prowadzone papierowo/na Excelu, brak historii i trudne rozliczenia.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Mobilna aplikacja serwisowa: checklisty, pakowanie na trasę, odczyty liczników, QR do zgłoszeń oraz centralny raport rozliczeń.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Skrócenie czasu serwisu, przejrzysta historia prac i mniejsza liczba reklamacji.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Comfort InstallPro — nowy case */}
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold">Comfort InstallPro — aplikacja dla monterów</h3>
+              <div className="mt-4 space-y-4 text-slate-200/90">
+                <div>
+                  <Pill icon={Lightbulb}>Wyzwanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Brak centralnego zarządzania projektami montażowymi: dane klienta, zadania, zdjęcia i historia użytych narzędzi były rozproszone.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Aplikacja <span className="font-semibold">Comfort InstallPro</span>: tworzenie projektu (dane klienta), lista zadań, przypisanie ekip, zdjęcia przed/w trakcie/po montażu oraz rejestr użytych urządzeń i narzędzi.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Lepsza kontrola jakości, kompletność dokumentacji na odbiory oraz szybsze raportowanie i rozliczenia z klientem.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Comfort CableCut — nowy case */}
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold">Comfort CableCut — optymalizacja cięć przewodów</h3>
+              <div className="mt-4 space-y-4 text-slate-200/90">
+                <div>
+                  <Pill icon={Lightbulb}>Wyzwanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Przy dużych inwestycjach cięcie przewodów było planowane ręcznie — powodowało to nadmiar odpadów i nieoptymalne zakupy.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Platforma <span className="font-semibold">Comfort CableCut</span>: planowanie tras, zadeklarowanie bębnów, algorytm cięć i przydział z bębnów, eksport list dla ekip i zestawień zakupowych.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Mniejsze odpady materiałowe, klarowne zestawienia dla zespołu montażowego i optymalizacja kosztów zakupów materiałów.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+          </div>
         </Container>
       </Section>
+
+    {/*
+  <Section id="tech" className="pt-0">
+    <Container>
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Technologie, które łączymy:</h2>
+      <Card className="p-6">
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-slate-100/90">
+          {["PN/EN – zgodność i normy", "SQL / Subiekt Nexo Pro", "Python / FastAPI", "Power BI / AppSheet"].map((t) => (
+            <div key={t} className="rounded-xl border border-white/10 px-4 py-3 text-center">{t}</div>
+          ))}
+        </div>
+      </Card>
+    </Container>
+  </Section>
+*/}
 
       {/* separator */}
       <div className="h-1" style={{ background: `linear-gradient(90deg, ${COLORS.accent}, transparent)` }} />
 
-      /* {/* KONTAKT */}
+      {/* KONTAKT */}
       <Section id="kontakt">
         <Container>
           <Card className="p-6">
@@ -415,6 +465,9 @@ export default function Landing() {
                   <p>
                     <strong>E-mail:</strong>{" "}
                     <a className="underline" href="mailto:biuro.comfortconnector@gmail.com">biuro.comfortconnector@gmail.com</a>
+                  </p>
+                  <p className="mt-4 text-slate-400 text-sm">
+                    Umów bezpłatną diagnozę 30–45 minut — zidentyfikujemy kluczowe problemy i zaproponujemy PoC.
                   </p>
                 </div>
               </div>
@@ -435,19 +488,20 @@ export default function Landing() {
                 />
                 <select
                   name="service"
-                  defaultValue="Pomiary elektryczne"
+                  defaultValue="Zakupy i magazyn"
                   className="w-full rounded-xl bg-transparent border border-white/20 px-4 py-3 outline-none focus:border-white/40"
                 >
-                  <option className="text-black">Pomiary elektryczne</option>
-                  <option className="text-black">Instalacje PV</option>
-                  <option className="text-black">Usługi informatyczne</option>
-                  <option className="text-black">Comfort VendPro</option>
-                  <option className="text-black">Aplikacje optymalizujące procesy</option>
+                  <option className="text-black">Zakupy i magazyn</option>
+                  <option className="text-black">Sprzedaż / CRM</option>
+                  <option className="text-black">Serwis i operacje terenowe</option>
+                  <option className="text-black">Automatyzacje i API</option>
+                  <option className="text-black">Raporty i dashboardy</option>
+                  <option className="text-black">Aplikacje dedykowane</option>
                 </select>
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Wiadomość"
+                  placeholder="Wiadomość — opisz krótko problem lub oczekiwany efekt"
                   className="w-full rounded-xl bg-transparent border border-white/20 px-4 py-3 outline-none focus:border-white/40"
                 />
                 <Button type="submit" className="w-full justify-center" disabled={sending}>
@@ -458,7 +512,7 @@ export default function Landing() {
             </div>
           </Card>
         </Container>
-      </Section> */
+      </Section>
 
       {/* FOOTER */}
       <footer className="py-12 border-t border-white/10">
@@ -467,10 +521,9 @@ export default function Landing() {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <img src={logo} alt="Comfort Connector" className="h-23 w-auto rounded" />
-{/*                 <span className="font-semibold">Comfort Connector</span> */}
               </div>
               <p className="text-slate-400">
-{/*                 Pomiary elektryczne, instalacje PV i oprogramowanie — jeden partner, pełna odpowiedzialność. */}
+                IT i optymalizacja procesów dla MŚP — integracje, aplikacje terenowe i raporty decyzyjne.
               </p>
             </div>
 
@@ -479,7 +532,6 @@ export default function Landing() {
               <ul className="space-y-1 text-slate-300">
                 <li>Comfort Connector – Łukasz Witt</li>
                 <li>NIP: <span className="tabular-nums">7831920072</span></li>
-                {/* Dodaj adres/REGON gdy będziesz chciał. */}
               </ul>
             </div>
 
@@ -488,7 +540,6 @@ export default function Landing() {
               <ul className="space-y-1 text-slate-300">
                 <li><a href="#uslugi" className="hover:text-white">Usługi</a></li>
                 <li><a href="#case" className="hover:text-white">Realizacje</a></li>
-                <li><a href="#tech" className="hover:text-white">Technologie</a></li>
                 <li><a href="#kontakt" className="hover:text-white">Kontakt</a></li>
               </ul>
             </div>
@@ -510,7 +561,6 @@ export default function Landing() {
 
           <div className="mt-8 pt-6 border-t border-white/10 text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-3">
             <span>© {new Date().getFullYear()} Comfort Connector</span>
-{/*             <span>Granat&nbsp;#031b31 • Akcent&nbsp;#F4C542</span> */}
           </div>
         </Container>
       </footer>
