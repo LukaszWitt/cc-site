@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import logo from "./assets/logo_header_h80@2x.png";
 
-// APPS_SCRIPT_URL -> wklej tutaj URL z Deploy > Web app (np. https://script.google.com/macros/s/AK.../exec)
+// APPS_SCRIPT_URL -> zostaw swój URL z Deploy > Web app (exec)
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyt8TyOCZ__-OGJdjYPiWrXdsKJ8Y_raL0hZcIE9VMlUPn3oPsy2jPJgzSeXrCV0y6I/exec";
 
 const COLORS = { primary: "#031b31", accent: "#F4C542", card: "#0b2a46" };
@@ -57,7 +57,7 @@ const Container = ({ className = "", children }) => (
 
 const ICON_CLASS = "w-7 h-7 md:w-8 md:h-8";
 
-/* services array (unchanged semantics) */
+/* services array */
 const services = [
   {
     id: "zakupy",
@@ -179,7 +179,6 @@ export default function Landing() {
       setSent(false);
 
       const fd = new FormData(form);
-      // jeśli chcesz, możesz dodać dodatkowe pola do fd tutaj, np. fd.append('extra', 'value')
 
       const res = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
@@ -191,7 +190,6 @@ export default function Landing() {
         throw new Error(`HTTP ${res.status}: ${txt}`);
       }
 
-      // aplikacja Apps Script powinna zwrócić JSON {ok:true} — spróbuj sparsować
       const data = await res.json().catch(() => null);
       if (data && data.ok === false) throw new Error(data.error || "Serwer zwrócił błąd");
 
@@ -294,7 +292,7 @@ export default function Landing() {
           <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Realizacje — wybrane projekty</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* (cases omitted here are unchanged) */}
+            {/* MagElektro */}
             <Card className="p-6">
               <h3 className="text-2xl font-bold">MVP — integracja stanów i rekomendacje zamówień</h3>
               <div className="mt-4 space-y-4 text-slate-200/90">
@@ -304,9 +302,22 @@ export default function Landing() {
                     Dane rozproszone w systemach i Excelach, ręczne zamówienia i brak spójnych prognoz — co prowadziło do braków i nadwyżek magazynowych.
                   </p>
                 </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Integracja Interelektro ↔ Subiekt Nexo Pro, harmonogram synchronizacji stanów i cen, moduł propozycji zamówień z regułami (lead time, min/opt).
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Aktualne stany, szybsze przygotowanie zamówień i mniejsza liczba zwrotów. Przejrzystość marży i lepsze planowanie zakupów.
+                  </p>
+                </div>
               </div>
             </Card>
 
+            {/* Comfort Analytics */}
             <Card className="p-6">
               <h3 className="text-2xl font-bold">Comfort Analytics — kokpit decyzyjny</h3>
               <div className="mt-4 space-y-4 text-slate-200/90">
@@ -316,9 +327,22 @@ export default function Landing() {
                     Brak jednego, wiarygodnego źródła danych dla KPI i zarządu.
                   </p>
                 </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Model danych raportowych, dashboardy Power BI i procesy ETL — konsolidacja danych z ERP i innych źródeł.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Szybsze decyzje, ujednolicone KPI i redukcja ręcznej pracy analitycznej.
+                  </p>
+                </div>
               </div>
             </Card>
 
+            {/* Comfort VendPro */}
             <Card className="p-6">
               <h3 className="text-2xl font-bold">Comfort VendPro — system serwisowy dla vendingu</h3>
               <div className="mt-4 space-y-4 text-slate-200/90">
@@ -328,9 +352,22 @@ export default function Landing() {
                     Procesy serwisowe prowadzone papierowo/na Excelu, brak historii i trudne rozliczenia.
                   </p>
                 </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Mobilna aplikacja serwisowa: checklisty, pakowanie na trasę, odczyty liczników, QR do zgłoszeń oraz centralny raport rozliczeń.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Skrócenie czasu serwisu, przejrzysta historia prac i mniejsza liczba reklamacji.
+                  </p>
+                </div>
               </div>
             </Card>
 
+            {/* Comfort InstallPro — aplikacja dla monterów */}
             <Card className="p-6">
               <h3 className="text-2xl font-bold">Comfort InstallPro — aplikacja dla monterów</h3>
               <div className="mt-4 space-y-4 text-slate-200/90">
@@ -340,9 +377,22 @@ export default function Landing() {
                     Brak centralnego zarządzania projektami montażowymi: dane klienta, zadania, zdjęcia i historia użytych narzędzi były rozproszone.
                   </p>
                 </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Aplikacja <span className="font-semibold">Comfort InstallPro</span>: tworzenie projektu (dane klienta), lista zadań, przypisanie ekip, zdjęcia przed/w trakcie/po montażu oraz rejestr użytych urządzeń i narzędzi.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Lepsza kontrola jakości, kompletność dokumentacji na odbiory oraz szybsze raportowanie i rozliczenia z klientem.
+                  </p>
+                </div>
               </div>
             </Card>
 
+            {/* Comfort CableCut — optymalizacja cięć przewodów */}
             <Card className="p-6">
               <h3 className="text-2xl font-bold">Comfort CableCut — optymalizacja cięć przewodów</h3>
               <div className="mt-4 space-y-4 text-slate-200/90">
@@ -352,6 +402,18 @@ export default function Landing() {
                     Przy dużych inwestycjach cięcie przewodów było planowane ręcznie — powodowało to nadmiar odpadów i nieoptymalne zakupy.
                   </p>
                 </div>
+                <div>
+                  <Pill icon={Wand2}>Rozwiązanie</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Platforma <span className="font-semibold">Comfort CableCut</span>: planowanie tras, zadeklarowanie bębnów, algorytm cięć i przydział z bębnów, eksport list dla ekip i zestawień zakupowych.
+                  </p>
+                </div>
+                <div>
+                  <Pill icon={TrendingUp}>Efekty</Pill>
+                  <p className="mt-2 pl-4 border-l-2" style={{ borderColor: COLORS.accent }}>
+                    Mniejsze odpady materiałowe, klarowne zestawienia dla zespołu montażowego i optymalizacja kosztów zakupów materiałów.
+                  </p>
+                </div>
               </div>
             </Card>
 
@@ -359,7 +421,20 @@ export default function Landing() {
         </Container>
       </Section>
 
-    {/* tech section commented out */}
+    {/* tech section commented out
+    <Section id="tech" className="pt-0">
+      <Container>
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Technologie, które łączymy:</h2>
+        <Card className="p-6">
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-slate-100/90">
+            {["PN/EN – zgodność i normy", "SQL / Subiekt Nexo Pro", "Python / FastAPI", "Power BI / AppSheet"].map((t) => (
+              <div key={t} className="rounded-xl border border-white/10 px-4 py-3 text-center">{t}</div>
+            ))}
+          </div>
+        </Card>
+      </Container>
+    </Section>
+    */}
 
       {/* separator */}
       <div className="h-1" style={{ background: `linear-gradient(90deg, ${COLORS.accent}, transparent)` }} />
@@ -395,7 +470,7 @@ export default function Landing() {
                   className="w-full rounded-xl bg-transparent border border-white/20 px-4 py-3 outline-none focus:border-white/40"
                 />
 
-                {/* dodane pola company + phone */}
+                {/* opcjonalne pola company + phone */}
                 <input
                   name="company"
                   placeholder="Firma (opcjonalnie)"
