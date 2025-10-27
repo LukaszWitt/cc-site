@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import logo from "./assets/logo_header_h80@2x.png";
 
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyt8TyOCZ__-OGJdjYPiWrXdsKJ8Y_raL0hZcIE9VMlUPn3oPsy2jPJgzSeXrCV0y6I/exec"; // <- wklej tu swój URL
+
 const COLORS = { primary: "#031b31", accent: "#F4C542", card: "#0b2a46" };
 
 const Button = ({ as: Tag = "button", className = "", children, style, ...props }) => (
@@ -169,50 +171,50 @@ export default function Landing() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.currentTarget;
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const fd = new FormData(form);
 
-    try {
-      setSending(true);
-      setSent(false);
+  const payload = {
+    name: fd.get("name"),
+    company: fd.get("company") || "",
+    phone: fd.get("phone") || "",
+    email: fd.get("email"),
+    service: fd.get("service"),
+    message: fd.get("message"),
+    website: fd.get("website") || "" // honeypot - powinno być puste
+  };
 
-      const fd = new FormData(form);
-      const payload = {
-        name: fd.get("name"),
-        email: fd.get("email"),
-        service: fd.get("service"),
-        message: fd.get("message"),
-      };
+  try {
+    setSending(true);
+    setSent(false);
 
-      const base = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
-      if (!base) throw new Error("Brak VITE_API_URL (sprawdź ustawienia).");
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-      const res = await fetch(`${base}/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const raw = await res.text();
-      let data = null;
-      try { data = JSON.parse(raw); } catch {}
-
-      if (!res.ok) {
-        const msg = (data && (data.detail || data.message)) || `HTTP ${res.status}`;
-        throw new Error(msg);
-      }
-      if (data && data.ok === false) throw new Error("Serwer odrzucił prośbę.");
-
-      setSent(true);
-      form.reset();
-    } catch (err) {
-      console.error("Contact form error:", err);
-      alert(`Nie udało się wysłać: ${err.message || err}`);
-    } finally {
-      setSending(false);
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`HTTP ${res.status}: ${txt}`);
     }
+
+    const data = await res.json().catch(() => null);
+    if (data && data.ok === false) throw new Error(data.error || "Serwer zwrócił błąd");
+
+    setSent(true);
+    form.reset();
+    alert("Wiadomość wysłana — dziękujemy!");
+  } catch (err) {
+    console.error("Contact form error:", err);
+    alert("Nie udało się wysłać formularza: " + (err.message || err));
+  } finally {
+    setSending(false);
   }
+}
+
 
   return (
     <div className="min-h-screen text-white" style={{ background: COLORS.primary }}>
